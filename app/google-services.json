@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1017090094764",
+    "project_id": "kanban-2dcdf",
+    "storage_bucket": "kanban-2dcdf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017090094764:android:da07454417009c020c5109",
+        "android_client_info": {
+          "package_name": "com.anaju.task"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYdVGlb3aDf8E706CwSvEam5DdcFMi254"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
