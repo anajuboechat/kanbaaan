@@ -42,5 +42,9 @@
     <string name="text_title_dialog_confira_logout">Deseja sair da sua conta?</string>
     <string name="text_button_dialog_confirm_logout">Confirmar</string>
     <string name="text_message_dialog_confirm_logout">Aperte em confirmar para sair da sua conta</string>
+    <string name="text_save_sucess_task_fragment">Tarefa salva com sucesso!</string>
+    <string name="error_generic">Ocorreu um erro no sistema</string>
+    <string name="text_list_task_empty">Nenhuma tarefa cadastrada</string>
+    <string name="text_list_task_load">Aguarde, estamos carregando as informações</string>
     <string name="text_message_recover_account">Enviamos uma mensagem no seu email para redefinir a sua senha!</string>
 </resources>
