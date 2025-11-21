@@ -57,7 +57,7 @@ class RecoverAccountFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     binding.progressbar.isVisible = false
                     if (task.isSuccessful){
-                        showBottomSheet(message = getString(R.string.text_message_recover_account))
+                        showBottomSheet(message = getString(R.string.text_button_recover_account_fragment))
                     }else{
                         Toast.makeText(requireContext(),task.exception?.message, Toast.LENGTH_SHORT).show()
                     }

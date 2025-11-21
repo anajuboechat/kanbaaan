@@ -16,76 +16,59 @@ import com.anaju.task.databinding.ItemTaskBinding
 
 class TaskAdapter(
     private val context: Context,
-    private val taskSelected: (Task, Int) -> Unit
-) : ListAdapter<Task, TaskAdapter.MyViewHolder>(DIFF_CALLBACK) {
+    private val onOptionSelected: (Task, Int) -> Unit
+) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        const val SELECT_BACK = 1
-        const val SELECT_REMOVE = 2
-        const val SELECT_EDIT = 3
-        const val SELECT_DETAILS = 4
-        const val SELECT_NEXT = 5
+        const val SELECT_REMOVER = 0
+        const val SELECT_EDIT = 1
+        const val SELECT_DETAILS = 2
+        const val SELECT_NEXT = 3
+        const val SELECT_BACK = 4
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Task>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Task>() {
             override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
                 return oldItem == newItem
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ItemTaskBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return MyViewHolder(binding)
-    }
+    inner class TaskViewHolder(val binding: ItemTaskBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val task = getItem(position)
-        holder.binding.textDescription.text = task.description
-        setIndicators(task, holder)
-    }
+        fun bind(task: Task) {
+            binding.textDescription.text = task.description
 
-    private fun setIndicators(task: Task, holder: MyViewHolder) {
-        with(holder.binding) {
-
-            when (task.status) {
-
-                Status.TODO -> {
-                    buttonBack.isVisible = false
-                    buttonFoward.setOnClickListener { taskSelected(task, SELECT_NEXT) }
-                }
-
-                Status.DOING -> {
-                    buttonBack.setColorFilter(
-                        ContextCompat.getColor(context, R.color.color_status_todo)
-                    )
-                    buttonFoward.setColorFilter(
-                        ContextCompat.getColor(context, R.color.color_status_done)
-                    )
-                    buttonFoward.setOnClickListener { taskSelected(task, SELECT_NEXT) }
-                    buttonBack.setOnClickListener { taskSelected(task, SELECT_BACK) }
-                }
-
-                Status.DONE -> {
-                    buttonFoward.isVisible = false
-                    buttonBack.setOnClickListener { taskSelected(task, SELECT_BACK) }
-                }
+            binding.buttonDelete.setOnClickListener {
+                onOptionSelected(task, SELECT_REMOVER)
             }
-
-            buttonDelete.setOnClickListener { taskSelected(task, SELECT_REMOVE) }
-            buttonEditar.setOnClickListener { taskSelected(task, SELECT_EDIT) }
-            buttonDetails.setOnClickListener { taskSelected(task, SELECT_DETAILS) }
+            binding.buttonEditar.setOnClickListener {
+                onOptionSelected(task, SELECT_EDIT)
+            }
+            binding.buttonDetails.setOnClickListener {
+                onOptionSelected(task, SELECT_DETAILS)
+            }
+            binding.buttonFoward.setOnClickListener {
+                onOptionSelected(task, SELECT_NEXT)
+            }
+            binding.buttonBack.setOnClickListener {
+                onOptionSelected(task, SELECT_BACK)
+            }
         }
     }
 
-    inner class MyViewHolder(val binding: ItemTaskBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+        val binding = ItemTaskBinding.inflate(
+            LayoutInflater.from(context), parent, false
+        )
+        return TaskViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
 }

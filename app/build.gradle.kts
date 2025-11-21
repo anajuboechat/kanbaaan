@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    id("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {
@@ -55,5 +57,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
+    implementation("com.google.firebase:firebase-analytics")
 
 }
